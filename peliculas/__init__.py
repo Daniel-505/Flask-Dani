@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -11,15 +11,5 @@ with app.app_context():
 def hello():
     return 'Hello, World!'
 
-@app.route('/categoria')
-def Actor():
-    consulta = """
-        SELECT first_name, last_name FROM actor
-        ORDER BY last_name, first_name; 
-    """
-    con = db.get_db()
-    res = con.execute(consulta)
-    lista_Actor = res.fetchall()
-    pagina = render_template('Actor.html', actores=lista_Actor)
-
-    return pagina
+from . import categoriaa
+app.register_blueprint(categoriaa.bp)
